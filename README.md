@@ -29,4 +29,4 @@ npx serve .
 | `tetris.js` | Tetris engine, rendering and touch controls |
 | `app.js` | Home, setup screens, settings, back-button handling |
 
-Deployed on Vercel as a static site (`vercel.json` sets headers only).
+Live: https://tic-tac-toe-omega.vercel.app — deployed on Vercel as a static site (`vercel.json` sets headers only). Pushes to `main` deploy automatically.
