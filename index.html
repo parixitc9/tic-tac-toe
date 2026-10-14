@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F5F4F0">
+<title>Tic &amp; Tris</title>
+<meta name="description" content="Tic-Tac-Toe and Tetris in one clean little app. Play vs the computer or a friend, right in your browser.">
+<meta property="og:title" content="Tic &amp; Tris">
+<meta property="og:description" content="Tic-Tac-Toe and Tetris in one clean little app. Play vs the computer or a friend, right in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M6 5l6 6 6-6M6 11l6 6 6-6M5 20h14"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M19.5 12A7.5 7.5 0 1 1 17.3 6.7"/><path d="M19.5 3.5v4.5H15"/></symbol>
+    <symbol id="i-mark" viewBox="18 18 72 72">
+      <rect x="18" y="18" width="72" height="72" rx="18" class="mark-bg"/>
+      <g stroke-linecap="round" fill="none" stroke-width="5.5">
+        <path d="M34 31 L48 45 M48 31 L34 45" stroke="#FF6369"/>
+        <circle cx="67" cy="38" r="7.5" stroke="#7B93FF"/>
+      </g>
+      <g fill="#F0C24B">
+        <rect x="37" y="55" width="10.5" height="10.5" rx="2.2"/>
+        <rect x="48.75" y="55" width="10.5" height="10.5" rx="2.2"/>
+        <rect x="60.5" y="55" width="10.5" height="10.5" rx="2.2"/>
+        <rect x="48.75" y="66.75" width="10.5" height="10.5" rx="2.2"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<main id="app">
+
+  <!-- ============ HOME ============ -->
+  <section class="screen" id="home" data-screen>
+    <header class="home-head">
+      <div class="brand">
+        <svg class="brand-mark"><use href="#i-mark"/></svg>
+        <div>
+          <h1>Tic &amp; Tris</h1>
+          <p class="muted">Two classic games, one app</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="open-settings" aria-label="Settings"><svg class="ic"><use href="#i-sliders"/></svg></button>
+    </header>
+
+    <div class="cards">
+      <button class="game-card" data-go="ttt-setup">
+        <div class="card-art ttt-art" aria-hidden="true">
+          <svg viewBox="0 0 60 60">
+            <g class="art-grid"><path d="M21 8v44M39 8v44M8 21h44M8 39h44"/></g>
+            <g stroke-linecap="round" fill="none" stroke-width="4">
+              <path d="M10 10l8 8M18 10l-8 8" class="art-x"/>
+              <circle cx="30" cy="30" r="5" class="art-o"/>
+              <path d="M42 42l8 8M50 42l-8 8" class="art-x"/>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h2>Tic-Tac-Toe</h2>
+          <p>vs Computer or 2 players</p>
+          <p class="stat" id="home-ttt-stat"></p>
+        </div>
+        <svg class="ic chev"><use href="#i-chev"/></svg>
+      </button>
+
+      <button class="game-card" data-go="tetris-setup">
+        <div class="card-art tetris-art" aria-hidden="true">
+          <svg viewBox="0 0 60 60">
+            <rect x="8" y="40" width="10" height="10" rx="2" fill="#4F7DF0"/>
+            <rect x="19" y="40" width="10" height="10" rx="2" fill="#4F7DF0"/>
+            <rect x="30" y="40" width="10" height="10" rx="2" fill="#4FC48A"/>
+            <rect x="41" y="40" width="10" height="10" rx="2" fill="#4FC48A"/>
+            <rect x="8" y="29" width="10" height="10" rx="2" fill="#4F7DF0"/>
+            <rect x="41" y="29" width="10" height="10" rx="2" fill="#4FC48A"/>
+            <rect x="19" y="10" width="10" height="10" rx="2" fill="#A070E0"/>
+            <rect x="30" y="10" width="10" height="10" rx="2" fill="#A070E0"/>
+            <rect x="41" y="10" width="10" height="10" rx="2" fill="#A070E0"/>
+            <rect x="30" y="21" width="10" height="10" rx="2" fill="#A070E0"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h2>Tetris</h2>
+          <p>Solo or pass &amp; play</p>
+          <p class="stat" id="home-tetris-stat"></p>
+        </div>
+        <svg class="ic chev"><use href="#i-chev"/></svg>
+      </button>
+    </div>
+    <p class="version muted">v1.0</p>
+  </section>
+
+  <!-- ============ TIC-TAC-TOE SETUP ============ -->
+  <section class="screen" id="ttt-setup" data-screen>
+    <header class="bar">
+      <button class="icon-btn" data-back aria-label="Back"><svg class="ic"><use href="#i-back"/></svg></button>
+      <h2>Tic-Tac-Toe</h2>
+      <span class="icon-spacer"></span>
+    </header>
+    <div class="content">
+      <p class="label">Mode</p>
+      <div class="options" id="ttt-mode">
+        <button class="option" data-v="cpu"><strong>vs Computer</strong><span>You play X</span></button>
+        <button class="option" data-v="2p"><strong>2 Players</strong><span>Same phone, take turns</span></button>
+      </div>
+      <div id="ttt-diff-wrap">
+        <p class="label">Difficulty</p>
+        <div class="seg wide" id="ttt-diff">
+          <button data-v="easy">Easy</button>
+          <button data-v="medium">Medium</button>
+          <button data-v="hard">Hard</button>
+        </div>
+        <div class="record" id="ttt-record"></div>
+      </div>
+      <p class="hint muted">First move alternates every round.</p>
+    </div>
+    <div class="actions"><button class="btn primary" id="ttt-start">Start</button></div>
+  </section>
+
+  <!-- ============ TIC-TAC-TOE GAME ============ -->
+  <section class="screen" id="ttt-game" data-screen>
+    <header class="bar">
+      <button class="icon-btn" data-back aria-label="Back"><svg class="ic"><use href="#i-back"/></svg></button>
+      <div class="bar-title"><h2>Tic-Tac-Toe</h2><small id="ttt-sub"></small></div>
+      <button class="icon-btn" id="ttt-restart" aria-label="Restart round"><svg class="ic"><use href="#i-restart"/></svg></button>
+    </header>
+    <div class="content ttt-content">
+      <div class="scoreboard">
+        <div class="score sx" id="ttt-p-x"><span class="who" id="ttt-n-x">You</span><span class="glyph gx">X</span><b id="ttt-s-x">0</b></div>
+        <div class="score sd"><span class="who">Draws</span><span class="glyph">–</span><b id="ttt-s-d">0</b></div>
+        <div class="score so" id="ttt-p-o"><span class="who" id="ttt-n-o">CPU</span><span class="glyph go">O</span><b id="ttt-s-o">0</b></div>
+      </div>
+      <p class="status" id="ttt-status">&nbsp;</p>
+      <div class="board-wrap">
+        <div class="ttt-board" id="ttt-board"></div>
+        <svg class="win-line" id="ttt-winline" viewBox="0 0 300 300" aria-hidden="true"><line x1="0" y1="0" x2="0" y2="0"/></svg>
+      </div>
+      <div class="ttt-after"><button class="btn primary" id="ttt-next">Next round</button></div>
+    </div>
+    <div class="actions"><button class="text-btn" id="ttt-reset">Reset scores</button></div>
+  </section>
+
+  <!-- ============ TETRIS SETUP ============ -->
+  <section class="screen" id="tetris-setup" data-screen>
+    <header class="bar">
+      <button class="icon-btn" data-back aria-label="Back"><svg class="ic"><use href="#i-back"/></svg></button>
+      <h2>Tetris</h2>
+      <span class="icon-spacer"></span>
+    </header>
+    <div class="content">
+      <p class="label">Mode</p>
+      <div class="options" id="tetris-mode">
+        <button class="option" data-v="solo"><strong>Solo</strong><span>Chase your high score</span></button>
+        <button class="option" data-v="2p"><strong>2 Players</strong><span>Take turns, best score wins</span></button>
+      </div>
+      <p class="label">Start level</p>
+      <div class="stepper">
+        <button class="icon-btn" id="lvl-minus" aria-label="Lower level">−</button>
+        <b id="lvl-val">1</b>
+        <button class="icon-btn" id="lvl-plus" aria-label="Raise level">+</button>
+      </div>
+      <p class="label">Best scores</p>
+      <ol class="best-list" id="tetris-best"></ol>
+      <div class="howto">
+        <p class="label">Controls</p>
+        <ul class="muted">
+          <li>Tap the board to rotate</li>
+          <li>Drag left or right to move</li>
+          <li>Flick down to drop, swipe up to hold</li>
+        </ul>
+      </div>
+    </div>
+    <div class="actions"><button class="btn primary" id="tetris-start">Start</button></div>
+  </section>
+
+  <!-- ============ TETRIS GAME ============ -->
+  <section class="screen" id="tetris-game" data-screen>
+    <header class="t-bar">
+      <button class="icon-btn" id="t-pause" aria-label="Pause"><svg class="ic"><use href="#i-pause"/></svg></button>
+      <div class="t-stats">
+        <div><small>Score</small><b id="t-score">0</b></div>
+        <div><small>Level</small><b id="t-level">1</b></div>
+        <div><small>Lines</small><b id="t-lines">0</b></div>
+      </div>
+      <span class="player-tag" id="t-player">P1</span>
+    </header>
+    <div class="t-main" id="t-main">
+      <div class="t-play">
+        <div class="t-board-wrap"><canvas id="t-board"></canvas></div>
+        <aside class="t-side">
+          <button class="t-box" id="t-hold-box" aria-label="Hold piece"><small>Hold</small><canvas id="t-hold"></canvas></button>
+          <div class="t-box"><small>Next</small><canvas id="t-next"></canvas></div>
+          <div class="t-best"><small>Best</small><b id="t-best">0</b></div>
+        </aside>
+      </div>
+    </div>
+    <div class="t-controls">
+      <button class="ctl" data-act="left" aria-label="Move left"><svg class="ic"><use href="#i-left"/></svg></button>
+      <button class="ctl" data-act="right" aria-label="Move right"><svg class="ic"><use href="#i-right"/></svg></button>
+      <button class="ctl" data-act="soft" aria-label="Soft drop"><svg class="ic"><use href="#i-down"/></svg></button>
+      <button class="ctl" data-act="hard" aria-label="Hard drop"><svg class="ic"><use href="#i-drop"/></svg></button>
+      <button class="ctl big" data-act="rotate" aria-label="Rotate"><svg class="ic"><use href="#i-rotate"/></svg></button>
+    </div>
+    <div class="overlay" id="t-overlay"><div class="panel" id="t-panel"></div></div>
+  </section>
+
+</main>
+
+<!-- ============ SETTINGS SHEET ============ -->
+<div class="sheet-backdrop" id="settings-sheet">
+  <div class="sheet" role="dialog" aria-label="Settings">
+    <div class="sheet-handle"></div>
+    <h3>Settings</h3>
+    <label class="row"><span>Sound effects</span><input type="checkbox" class="switch" id="set-sound"></label>
+    <label class="row"><span>Vibration</span><input type="checkbox" class="switch" id="set-vib"></label>
+    <div class="row"><span>Theme</span>
+      <div class="seg" id="set-theme"><button data-v="auto">Auto</button><button data-v="light">Light</button><button data-v="dark">Dark</button></div>
+    </div>
+    <button class="text-btn danger" id="reset-data">Reset all scores</button>
+    <button class="btn primary" id="close-settings">Done</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="core.js"></script>
+<script src="ttt.js"></script>
+<script src="tetris.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
